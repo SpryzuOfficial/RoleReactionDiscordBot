@@ -44,24 +44,27 @@ client.on('interactionCreate', async(interaction) =>
     {
         try
         {
-            if(interaction.customId == 'add-role-select')
+            if(interaction.member.roles.cache.has(process.env.ADM))
             {
-                interaction.member.roles.add(interaction.guild.roles.cache.get(interaction.values[0]));
-                interaction.reply('Role added (This message will be deleted in 3 seconds)');
-                setTimeout(async() =>
+                if(interaction.customId == 'add-role-select')
                 {
-                    await interaction.deleteReply();
-                }, 3000);
-            }
+                    interaction.member.roles.add(interaction.guild.roles.cache.get(interaction.values[0]));
+                    interaction.reply('Role added (This message will be deleted in 3 seconds)');
+                    setTimeout(async() =>
+                    {
+                        await interaction.deleteReply();
+                    }, 3000);
+                }
 
-            if(interaction.customId == 'remove-role-select')
-            {
-                interaction.member.roles.remove(interaction.guild.roles.cache.get(interaction.values[0]));
-                interaction.reply('Role removed (This message will be deleted in 3 seconds)');
-                setTimeout(async() =>
+                if(interaction.customId == 'remove-role-select')
                 {
-                    await interaction.deleteReply();
-                }, 3000);
+                    interaction.member.roles.remove(interaction.guild.roles.cache.get(interaction.values[0]));
+                    interaction.reply('Role removed (This message will be deleted in 3 seconds)');
+                    setTimeout(async() =>
+                    {
+                        await interaction.deleteReply();
+                    }, 3000);
+                }
             }
         }
         catch(error)
